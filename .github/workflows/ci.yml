@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test-deploy:
+  build-test:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test -- --watchAll=false --passWithNoTests
+        run: CI=true npm test -- --watchAll=false
 
       - name: Build project
         run: CI=false npm run build
