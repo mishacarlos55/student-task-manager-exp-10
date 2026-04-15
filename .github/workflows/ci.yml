@@ -1,4 +1,4 @@
-name: React CI
+name: React CI/CD
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test:
+  build-test-deploy:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -30,4 +30,10 @@ jobs:
         run: npm test -- --watchAll=false --passWithNoTests
 
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build
+          path: build
